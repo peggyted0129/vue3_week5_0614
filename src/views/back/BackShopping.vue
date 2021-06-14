@@ -50,6 +50,10 @@
         </a>
       </div>
     </div>
+    <!-- pagination -->
+    <div class="d-flex mt-5 justify-content-center">
+      <Pagination :pages="pagination" @get-product="getProducts"></Pagination>
+    </div>
     <!-- 購物車列表 -->
     <table class="table align-middle mx-auto mt-5" style="max-width:800px">
       <thead class="table-light">
@@ -137,14 +141,17 @@
 </template>
 <script>
 import userProductModal from '@/components/back/UserProductModal.vue'
+import Pagination from '@/components/Pagination.vue'
 
 export default {
   components: {
-    userProductModal
+    userProductModal,
+    Pagination
   },
   data () {
     return {
       isLoading: false,
+      pagination: {},
       categories: new Set(),
       products: [], // 產品列表
       product: {}, // props 傳遞到內層的暫存資料
@@ -164,15 +171,16 @@ export default {
     }
   },
   methods: {
-    getProducts () {
+    getProducts (page = 1) {
       const vm = this
       vm.isLoading = true
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
       vm.$http.get(api).then((res) => {
         console.log('產品 All 列表', res.data)
         if (res.data.success) {
           vm.isLoading = false
           vm.products = res.data.products
+          vm.pagination = res.data.pagination
           const categories = new Set()
           vm.products.forEach((item) => {
             categories.add(item.category)

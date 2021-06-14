@@ -1,6 +1,6 @@
 <template>
 <section class="products">
-  <div class="w-100 products-banner position-relative mb-12">
+  <div class="w-100 products-banner position-relative mb-13">
     <div class="sidebar mx-7 mx-md-13">
       <ul class="text-center d-flex flex-wrap justify-content-center">
         <li>全部商品</li>
@@ -50,30 +50,41 @@
         </a>
       </div>
     </div>
+    <!-- pagination -->
+    <div class="d-flex mt-5 justify-content-center">
+      <Pagination :pages="pagination" @get-product="getProducts"></Pagination>
+    </div>
   </div>
 </section>
 </template>
 <script>
+import Pagination from '@/components/Pagination.vue'
+
 export default {
+  components: {
+    Pagination
+  },
   data () {
     return {
       isLoading: false,
       products: [], // 產品列表
+      pagination: {},
       loadingStatus: { // 讀取效果
         loadingItem: ''
       }
     }
   },
   methods: {
-    getProducts () {
+    getProducts (page = 1) {
       const vm = this
       vm.isLoading = true
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products`
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`
       vm.$http.get(api).then((res) => {
         console.log('產品 All 列表', res.data)
         if (res.data.success) {
           vm.isLoading = false
           vm.products = res.data.products
+          vm.pagination = res.data.pagination
         } else {
           vm.toastTopEnd(res.data.message, 'error')
         }
@@ -91,7 +102,6 @@ export default {
         console.log('加入購物車', res.data, cart)
         vm.loadingStatus.loadingItem = ''
         vm.toastTopEnd(res.data.message, 'success')
-        vm.getCart() // 重新取得購物車列表
       })
     },
     toastTopEnd (msg, icon) {
