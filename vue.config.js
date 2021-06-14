@@ -1,3 +1,5 @@
 module.exports = {
-  publicPath: '/vue3_week5_0614/',
-};
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/vue3_week5_0614/'
+    : '/'
+}

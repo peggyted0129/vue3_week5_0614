@@ -32,7 +32,7 @@ git init
 git add .
 git commit -m "update `date +'%Y-%m-%d %H:%M:%S'`";
 
-# 上傳到到 gh-pages
+# 上傳到 gh-pages
 # 如果是走 SSH 的話可能會比較不好調整
 git push -f $originUrl master:gh-pages
 

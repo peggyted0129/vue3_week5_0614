@@ -18,30 +18,7 @@
             <a class="nav-link" href="#" @click="navScrollUp">最新消息</a>
           </li>
           <li class="nav-item ms-2 py-4">
-            <a class="nav-link d-flex" @click="dropdownOpen('isProductDropdown')" href="#">
-              <span>產品總覽</span>
-              <span class="ms-1 arrowDown-pad d-none d-md-block"><i class="fas fa-chevron-down"></i></span>
-              <span v-if="isProductDropdown" class="ms-1 addIcon-phone d-md-none d-block ms-auto"><i class="fas fa-minus"></i></span>
-              <span v-else class="ms-1 addIcon-phone d-md-none d-block ms-auto"><i class="fas fa-plus"></i></span>
-            </a>
-            <!-- 手機版 : 手風琴效果 -->
-            <ul class="dropdown-open js-product-open d-md-none" :class="{ 'd-block' : isProductDropdown , active : isProductDropdown }">
-              <li class="mb-5">
-                <a href="#" class="ms-5 text-white">[ 產品列表 ] 肌膚 你不知道的奧秘</a>
-              </li>
-              <li>
-                <a href="#" class="ms-5 text-white">[ 產品列表 ] 肌膚 你不知道的奧秘</a>
-              </li>
-            </ul>
-            <!-- 電腦版 -->
-            <ul class="navbar-menu navbar-product-menu bg-theme p-7 ms-3 d-none d-md-block">
-              <li class="mb-5">
-                <a href="#">[ 產品列表 ] 肌膚 你不知道的奧秘</a>
-              </li>
-              <li>
-                <a href="#">[ 產品列表 ] 肌膚 你不知道的奧秘</a>
-              </li>
-            </ul>
+            <router-link to="/products" class="nav-link" @click="navScrollUp">產品總覽</router-link>
           </li>
           <li class="nav-item ms-2 py-4">
             <a class="nav-link" href="#" @click="navScrollUp">購買地點</a>
@@ -94,7 +71,7 @@ export default {
     return {
       togglerBtn: false, // RWD 打開下拉式選單
       isSkinDropdown: false, // RWD 選單內的第二層 Skin 下拉式選單
-      isProductDropdown: false, // RWD 選單內的第二層 Product 下拉式選單
+      // isProductDropdown: false, // RWD 選單內的第二層 Product 下拉式選單
       scrollHeader: false,
       routerName: this.$route.name
     }
@@ -109,10 +86,10 @@ export default {
         this[isOpen] = !this[isOpen]
         $('.toggler-bar-middle').toggleClass('d-none')
       }
-      if (isOpen === 'isProductDropdown') {
-        this[isOpen] = !this[isOpen]
-        $('.js-product-open').slideToggle()
-      }
+      // if (isOpen === 'isProductDropdown') {
+      //   this[isOpen] = !this[isOpen]
+      //   $('.js-product-open').slideToggle()
+      // }
       if (isOpen === 'isSkinDropdown') {
         this[isOpen] = !this[isOpen]
         $('.js-skin-open').slideToggle()

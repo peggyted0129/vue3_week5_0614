@@ -110,7 +110,7 @@
         <button type="button" class="btn btn-outline-danger fw-bolder" data-bs-dismiss="modal">
           取消
         </button>
-        <button type="button" class="btn btn-streak text-white fw-bolder" @click="$emit('update-product', tempProduct)" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-streak text-white fw-bolder" @click="$emit('update-product', tempProduct)">
           確認
         </button>
       </div>
@@ -179,7 +179,7 @@ export default {
           vm.fileUploading = false
           if (res.data.success) {
             console.log(res.data)
-            vm.imageUrl = res.data.imageUrl
+            vm.tempProduct.imageUrl = res.data.imageUrl
             vm.$swal({ title: '上傳圖片成功', icon: 'success' })
           }
           if (!res.data.success) {
