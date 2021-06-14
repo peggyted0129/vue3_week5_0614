@@ -2,7 +2,7 @@
 	color: $theme;
 }
 .page-link.active {
-	z-index: 3;
+	z-index: 1;
 	color: $theme;
 }
 .page-link {
@@ -37,7 +37,7 @@
   border-bottom-right-radius: 0rem;
 }
 .page-item.active .page-link {
-  z-index: 3;
+  z-index: 1;
   color: #fff;
   background-color: $theme;
   border-color:$theme;

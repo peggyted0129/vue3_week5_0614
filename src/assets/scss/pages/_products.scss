@@ -1,3 +1,4 @@
+/* 前台 Products.vue */
 .products {
   padding-top: 66px;
 }
@@ -61,4 +62,17 @@
   &:hover {
     color: $sgreen;
   }
+}
+/* 後台 BackShopping.vue */
+.back-category li {
+  border-right: 2px solid $hgray;
+  & a {
+    color: $theme;
+  }
+  &:hover a {
+    color: $sgreen;
+  }
+}
+.back-category li:last-of-type {
+  border: none;
 }

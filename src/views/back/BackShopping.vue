@@ -4,13 +4,21 @@
     <img src="https://upload.cc/i1/2021/06/12/N7mIQ1.gif
 " alt="loading">
   </loading>
-  <div class="container">
+  <div class="container-fluid px-13">
+    <aside>
+      <ul class="d-flex back-category">
+        <li><a href="#" class="h4 fw-bolder px-5">全部產品</a></li>
+        <li v-for="item in categories" :key="item">
+          <a href="#" class="h4 fw-bolder px-5">{{ item }}</a>
+        </li>
+      </ul>
+    </aside>
     <!--- 商品卡片 --->
     <div class="row mt-9">
       <div class="col-md-3 mb-7" v-for="item in products" :key="item.id">
         <a href="#" class="product-card" @click.prevent="openModal(item)">
           <div class="card position-relative back-card-shadow border-0 card-radius">
-            <div style="height: 253px; background-size: contain; background-position: center; background-repeat: no-repeat;"
+            <div style="height: 300px; background-size: contain; background-position: center; background-repeat: no-repeat;"
               :style="{backgroundImage: `url(${item.imageUrl})`}">
             </div>
             <div class="card-bg d-flex align-items-center">
@@ -128,7 +136,7 @@
 </section>
 </template>
 <script>
-import userProductModal from '@/components/UserProductModal.vue'
+import userProductModal from '@/components/back/UserProductModal.vue'
 
 export default {
   components: {
@@ -137,6 +145,7 @@ export default {
   data () {
     return {
       isLoading: false,
+      categories: new Set(),
       products: [], // 產品列表
       product: {}, // props 傳遞到內層的暫存資料
       loadingStatus: { // 讀取效果
@@ -158,12 +167,17 @@ export default {
     getProducts () {
       const vm = this
       vm.isLoading = true
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products`
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
       vm.$http.get(api).then((res) => {
         console.log('產品 All 列表', res.data)
         if (res.data.success) {
           vm.isLoading = false
           vm.products = res.data.products
+          const categories = new Set()
+          vm.products.forEach((item) => {
+            categories.add(item.category)
+          })
+          vm.categories = Array.from(categories)
         } else {
           vm.toastTopEnd(res.data.message, 'error')
         }
@@ -254,8 +268,10 @@ export default {
     openModal (item) {
       const vm = this
       console.log(item)
+      vm.isLoading = true
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${item.id}`
       vm.$http.get(api).then((res) => {
+        vm.isLoading = false
         vm.product = res.data.product
         vm.$refs.userProductModal.openModal()
       })

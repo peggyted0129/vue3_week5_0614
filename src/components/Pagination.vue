@@ -6,8 +6,8 @@
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li v-for="item in pages.total_pages" :key="item" class="page-item">
-      <a class="page-link" @click.prevent="$emit('get-product', item)" :class="{ 'active' : item === pages.current_page }" href="#">{{ item }}</a>
+    <li v-for="item in pages.total_pages" :key="item" :class="{ 'active' : item === pages.current_page }" class="page-item">
+      <a class="page-link" @click.prevent="$emit('get-product', item)" href="#">{{ item }}</a>
     </li>
     <li class="page-item" :class="{ 'disabled' : !pages.has_next}">
       <a class="page-link" @click.prevent="$emit('get-product', pages.current_page + 1)" href="#" aria-label="Next">

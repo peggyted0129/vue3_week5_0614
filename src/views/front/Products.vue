@@ -6,19 +6,19 @@
         <li>全部商品</li>
         <li>寶寶系列</li>
         <li>寶寶系列</li>
-        <li>寶寶系列</li>
-        <li>寶寶系列</li>
+        <li>身體清潔</li>
+        <li>臉部清潔</li>
         <li>寶寶系列</li>
       </ul>
     </div>
   </div>
   <!-- 產品列表 -->
-  <div class="container mb-13">
+  <div class="container-fluid px-15 mb-13">
     <div class="row mt-9">
       <div class="col-md-3 mb-7" v-for="item in products" :key="item.id">
         <a href="#" class="product-card">
           <div class="card position-relative back-card-shadow border-0 card-radius">
-            <div style="height: 253px; background-size: contain; background-position: center; background-repeat: no-repeat;"
+            <div style="height: 300px; background-size: contain; background-position: center; background-repeat: no-repeat;"
               :style="{backgroundImage: `url(${item.imageUrl})`}">
             </div>
             <div class="card-bg d-flex align-items-center">
